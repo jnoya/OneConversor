@@ -1,0 +1,80 @@
+package conversor;
+
+public class TipoMedida {
+	
+	public static void main(String[] args) {
+
+		int nFinal = 0;
+		
+		if (Datos.carregaDatos()) {
+			while (nFinal == 0) {
+				if (Conexao.conexao()) {
+	
+					String nInicial =  Caixa.setCaixa();
+					if (nInicial != null) {
+						
+						int tipo = TiposDeConversao.getTipoDeConversao(nInicial);
+						String[] MedidasPorTipo = Medidas.getMedidasPorTipo(tipo);
+						String nDe =  Caixa.setCaixa( "Escolha uma opção de conversão",
+								 "Possibilidades",MedidasPorTipo);
+						if (nDe != null) {
+						
+							String nValor = Caixa.setCaixa2();
+							boolean valorValido = false;
+							while (!valorValido) {
+								if (nValor == null) {
+									break;
+								}
+								if (nValor.matches("[0-9]*") && Float.valueOf(nValor).floatValue() > 0) {
+									break;
+								}
+								nValor = Caixa.setCaixa3();
+							}
+							if (nValor != null) {
+							
+								String nPara = Caixa.setCaixa("Escolha para que quer converter",
+										"Para", MedidasPorTipo);
+								if (nPara != null) {
+									
+									String nDeSimbolo = Medidas.getSimbolo(nDe);
+									String nParaSimbolo = Medidas.getSimbolo(nPara);
+									if (nDeSimbolo != null && nParaSimbolo != null) {
+										float resultado = Convertidor.getResultado(nInicial, nDe, nPara, nDeSimbolo, nParaSimbolo, nValor);
+										Caixa.mostraResultado(nValor, nDe, nPara, resultado);
+									}
+									else
+									{
+										nFinal = Caixa.caixaError("Não foram encontrados os simbolos das moedas seleccionadas." + System.lineSeparator() 
+											+ " Dados corrompidos");
+									}
+								}
+									
+							}
+								
+						}
+							
+					}
+	
+					nFinal = Caixa.setCaixaFinal();
+					
+				}
+				else
+				{
+					break;
+				}
+				
+			}
+						
+			Caixa.fecha();
+		
+		}
+		else
+		{
+			
+			Caixa.nSemDatos();
+			
+		}
+		
+	}
+			
+}

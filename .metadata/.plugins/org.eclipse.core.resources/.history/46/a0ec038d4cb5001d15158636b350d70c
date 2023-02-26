@@ -1,0 +1,57 @@
+package conversor;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
+public class TiposDeConversao {
+	
+	private int idTipoDeConversao;
+	private String nome;
+	private static Map<String, Integer> tipoDeConversaoComNome = new HashMap<>();
+	
+	public TiposDeConversao (int idTipo, String nome) {
+		
+		this.idTipoDeConversao = idTipo;
+		this.nome = nome;
+		tipoDeConversaoComNome.put(nome, idTipo);
+		
+	}
+
+	public static String[] getTiposDeConversao() {
+
+		Set<Entry<String, Integer>> associacoes = tipoDeConversaoComNome.entrySet();    
+        int i = 0;
+     	String[] r = new String[5];
+		
+		for (Entry<String, Integer> associacao : associacoes) {
+        
+			r[i] = associacao.getKey();
+        	i++;
+        	
+        }
+
+		return r;
+	}		
+
+	public static int getTipoDeConversao(String nome) {
+
+		Set<Entry<String, Integer>> associacoes = tipoDeConversaoComNome.entrySet();    
+		
+		for (Entry<String, Integer> associacao : associacoes) {
+
+			if (associacao.getKey() == nome) {
+				
+				return associacao.getValue();
+				
+			}
+        
+		}
+
+		return 0;
+		
+	}
+
+
+}

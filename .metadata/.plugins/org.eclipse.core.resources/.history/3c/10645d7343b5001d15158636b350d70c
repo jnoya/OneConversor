@@ -1,0 +1,78 @@
+package conversor;
+
+public class TipoMedida {
+	
+	public static void main(String[] args) {
+
+		TelaDeFundo frame = new TelaDeFundo();
+
+		int nFinal = 0;
+		
+		if (Datos.carregaDatos()) {
+			
+			while (nFinal == 0) {
+				String nInicial =  Caixa.setCaixa();
+				if (nInicial != null) {
+					
+					int tipo = TiposDeConversao.getTipoDeConversao(nInicial);
+					String[] MedidasPorTipo = Medidas.getMedidasPorTipo(tipo);
+					String nDe =  Caixa.setCaixa( "Escolha uma opção de conversão",
+							 "Possibilidades",MedidasPorTipo);
+					if (nDe != null) {
+					
+						String nValor = Caixa.setCaixa2();
+						boolean valorValido = false;
+						while (!valorValido) {
+							if (nValor == null) {
+								break;
+							}
+							if (!nValor.isEmpty()) {
+								if (nValor.matches("[0-9]*") && Float.valueOf(nValor).floatValue() > 0) {
+									break;
+								}
+								else
+								{
+									nValor = Caixa.setCaixa2();
+								}
+								nValor = Caixa.setCaixa2();
+							}
+							nValor = Caixa.setCaixa2();
+						}
+						if (nValor != null) {
+						
+							String nPara = Caixa.setCaixa("Escolha para que quer converter",
+									"Para", MedidasPorTipo);
+							if (nPara != null) {
+								
+								String nDeSimbolo = Medidas.getSimbolo(nDe);
+								String nParaSimbolo = Medidas.getSimbolo(nPara);
+								float resultado = Convertidor.getResultado(nInicial, nDe, nPara, nDeSimbolo, nParaSimbolo, nValor);
+								Caixa.mostraResultado(nValor, nDe, nPara, resultado);
+
+							}
+								
+						}
+							
+					}
+						
+				}
+
+				nFinal = Caixa.setCaixaFinal();
+				
+			}
+			
+			
+			TelaDeFundo.closeIt(frame);
+		
+		}
+		else
+		{
+			
+			Caixa.nSemDatos();
+			
+		}
+		
+	
+	}
+			
+}

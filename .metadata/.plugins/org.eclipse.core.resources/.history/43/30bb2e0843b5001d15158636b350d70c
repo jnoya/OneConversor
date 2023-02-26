@@ -1,0 +1,86 @@
+package conversor;
+
+import org.json.simple.parser.ParseException;
+
+public class Datos {
+	
+	public static boolean carregaDatos() {
+	
+		// Carrega os tipos de conversão.
+		new TiposDeConversao(1, "Moeda");
+		new TiposDeConversao(2, "Peso");
+		new TiposDeConversao(3, "Longitude");
+		new TiposDeConversao(4, "Velocidade");
+		new TiposDeConversao(5, "Temperatura");
+		// Carrega as medidas. 
+		Medidas m = new Medidas("Dolar Americano", "USD", 1, 1);
+		Medidas m1 = new Medidas("Quilograma", "Kg", 1, 2);
+		Medidas m2 = new Medidas("Metro", "m", 1, 3);
+		Medidas m3 = new Medidas("Quilometro/hora", "Km/h", 1f, 4);
+		Medidas m4 = new Medidas("Grau Celsius", "C°", 0.2f, 5);
+		Medidas m5 = new Medidas("Real Brasileiro", "BRL", 0, 1);
+		Medidas m6 = new Medidas("Libra", "lb", 2.20462f, 2);
+		Medidas m7 = new Medidas("Polegada", "''", 39.3701f, 3);
+		Medidas m8 = new Medidas("Milha/hora", "mi/h", 0.621371f, 4);
+		Medidas m9 = new Medidas("Grau Fahrenheit", "°F", 0.6444f, 5);
+		Medidas m10 = new Medidas("Euro","EUR" , 0, 1);
+		Medidas m11 = new Medidas("Onça", "oz", 35.274f, 2);
+		Medidas m12 = new Medidas("Milimetro", "mm", 1000, 3);
+		Medidas m13 = new Medidas("Metro/segundo", "m/s", 0.277778f, 4);
+		Medidas m14 = new Medidas("Kelvin", "K", 274.15f, 5);
+		Medidas m15 = new Medidas("Libra esterlina britanica", "GBP", 0, 1);
+		Medidas m16 = new Medidas("Grama", "g", 1000, 2);
+		Medidas m17 = new Medidas("Milha", "mi", 0.000621371f, 3);
+		Medidas m18 = new Medidas("Nó", "Nò", 0.539957f, 4);
+		Medidas m19 = new Medidas("Yuan chines", "CNY", 0, 1);
+		Medidas m20 = new Medidas("Rand da Sul-africano", "ZAR", 0, 1);
+		Medidas m21 = new Medidas("Ripple", "XRP", 0, 1);
+		Medidas m22 = new Medidas("Coroa Dinamarquesa", "DKK", 0, 1);
+		Medidas m23 = new Medidas("Won sul coreano", "KRW", 0, 1);
+		Medidas m24 = new Medidas("Peso argentino", "ARS", 0, 1);
+		Medidas m25 = new Medidas("Dolar australiano","AUD" , 0, 1);
+		Medidas m26 = new Medidas("Bitcoin cash", "BCH", 0, 1);
+		Medidas m27 = new Medidas("Lev bulgaro", "BGN", 0, 1);
+		Medidas m28 = new Medidas("Moeda binance", "BNB", 0, 1);
+		Medidas m29 = new Medidas("Bitcoin", "BTC", 0, 1);
+		Medidas m30 = new Medidas("Dolar canadiense","CAD" , 0, 1);
+		Medidas m31 = new Medidas("Franco suizo", "CHF", 0, 1);
+		Medidas m32 = new Medidas("Coroa da Republica Tcheca", "CZK", 0, 1);
+		Medidas m33 = new Medidas("Dogecoin", "DOGE", 0, 1);
+		Medidas m34 = new Medidas("Dinar Argelino", "DZD", 0, 1);
+		Medidas m35 = new Medidas("Ethereum", "ETH", 0, 1);
+		Medidas m36 = new Medidas("Dolar de Hong Kong", "HKD", 0, 1);
+		Medidas m37 = new Medidas("Kuna croata", "HRK", 0, 1);
+		Medidas m38 = new Medidas("Rupia indonesia", "IDR", 0, 1);
+		Medidas m39 = new Medidas("Florin hungaro", "HUF", 0, 1);
+		Medidas m40 = new Medidas("Novo shekel israelense", "ILS", 0, 1);
+		Medidas m41 = new Medidas("Rupia indiana", "EMR", 0, 1);
+		Medidas m42 = new Medidas("Coroa islandesa", "ISK", 0, 1);
+		Medidas m43 = new Medidas("Yen japones", "JPY", 0, 1);
+		Medidas m44 = new Medidas("Litecoin", "LTC", 0, 1);
+		Medidas m45 = new Medidas("Dirham marroquino", "MAD", 0, 1);
+		Medidas m46 = new Medidas("Peso mexicano", "MXN", 0, 1);
+		Medidas m47 = new Medidas("Ringgit malaio","MYR" , 0, 1);
+		Medidas m48 = new Medidas("Coroa Norueguesa", "NOK", 0, 1);
+		Medidas m49 = new Medidas("Dolar de Nova Zelandia", "NZD", 0, 1);
+		Medidas m50 = new Medidas("Peso filipino", "PHP", 0, 1);
+		Medidas m51 = new Medidas("Zloti polones", "PLN", 0, 1);
+		Medidas m52 = new Medidas("Leu romeno","RON" , 0, 1);
+		Medidas m53 = new Medidas("Rublo russo", "RUB", 0, 1);
+		Medidas m54 = new Medidas("Coroa sueca", "SEK", 0, 1);
+		Medidas m55 = new Medidas("Dolar de Singapura", "SGD", 0, 1);
+		Medidas m56 = new Medidas("Dinar Argelino", "DZD", 0, 1);
+		Medidas m57 = new Medidas("Baht tailandes","THB" , 0, 1);
+		Medidas m58 = new Medidas("Lira turca", "TRY", 0, 1);
+		Medidas m59 = new Medidas("Novo dolar taiwanes", "TWD", 0, 1);
+		try {
+			Medidas.carregaCotacoes();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+
+	}
+	
+}

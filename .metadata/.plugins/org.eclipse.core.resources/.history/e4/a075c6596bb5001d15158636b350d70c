@@ -1,0 +1,102 @@
+package conversor;
+
+import java.awt.Component;
+import java.awt.GraphicsEnvironment;
+
+import javax.swing.ImageIcon; 
+import javax.swing.JOptionPane;
+
+public class Caixa extends JOptionPane {
+
+	
+	private static final TelaDeFundo TELA = new TelaDeFundo();
+	private static ImageIcon icon = new ImageIcon("src/images/conversor.png");
+	 private static String[] tipos = TiposDeConversao.getTiposDeConversao();
+		
+	 public static String setCaixa() {
+		   
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 String n = (String)JOptionPane.showInputDialog(TELA, "Escolha uma opção de conversão",
+					 "Possibilidades", JOptionPane.QUESTION_MESSAGE, icon, tipos, tipos[0]);
+			  
+			 return n;
+		 }
+		 return null;
+			
+	  }
+	 
+	 public static String setCaixa(String etiqueta, String titulo, String[] medidas) {
+		   
+		 if (!GraphicsEnvironment.isHeadless()) {
+				 
+			 String n = (String)JOptionPane.showInputDialog(TELA, etiqueta, titulo,
+					 JOptionPane.QUESTION_MESSAGE, icon, medidas, medidas[0]);
+			 return n;
+		 }
+		 return null;
+		 
+	  }
+
+	 public static String setCaixa2() {
+		   
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 String n = (String)JOptionPane.showInputDialog(TELA, "Digite o valor a ser convertido",
+					 "Valor", JOptionPane.QUESTION_MESSAGE);
+			 return n;
+		 }
+		 return null;
+	  }
+	 
+	 public static String setCaixa3() {
+		   
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 String n = (String)JOptionPane.showInputDialog(TELA, "Digite un número inteiro maior que 0",
+					 "Valor", JOptionPane.INFORMATION_MESSAGE);
+			 return n;
+		 }
+		 return null;
+	  }
+	 
+	 public static void mostraResultado(String valor, String de, String para, float resultado) {
+	 
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 JOptionPane.showMessageDialog(TELA, "O resultado de converter " + valor + " de " + de 
+					+ " para " + para + " é " + resultado);
+		 }
+			 
+	 }
+	 
+	 public static int setCaixaFinal() {
+		
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 String[] opcoes = {"Sim por favor. De novo!!","Não obrigado. Pode fechar "}; 
+				
+			int i = JOptionPane.showOptionDialog(TELA,"Voce deseja fazer outra conversão?",
+						"Continuamos?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+					    icon, opcoes, opcoes[0]);
+			return i;
+		 }
+		 return 0;
+	 }
+
+	 public static void nSemDatos() {
+		 
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 JOptionPane.showMessageDialog(TELA,"Não foi possivel carregar os datos");
+		 }
+	 }
+
+	 public static void caixaError(String error {
+		 
+		 if (!GraphicsEnvironment.isHeadless()) {
+			 JOptionPane.showMessageDialog(TELA,error);
+		 }
+		 fecha();
+	 }
+	 
+	 public static void fecha() {
+		 
+		 TelaDeFundo.closeIt(TELA);
+	 }
+	 
+}	 

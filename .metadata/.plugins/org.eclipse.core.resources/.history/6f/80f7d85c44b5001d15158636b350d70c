@@ -1,0 +1,126 @@
+package conversor;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+
+import org.json.simple.parser.ParseException;
+
+import java.util.Map.Entry;
+
+public class Medidas {
+
+	private String nome;
+	private static String simbolo;
+	private float valor;
+	private int idTiposDeConversao;
+	private static Map<String, String> nomeComSimbolo = new HashMap<>();
+	private static Map<String, Float> valorComSimbolo = new HashMap<>();
+	private static Map<String, Integer> nomeComTipo = new HashMap<>();
+
+	
+	public Medidas(String nome2, String simbolo2, Float valor2, int tipo) {
+
+		this.nome = nome;
+		this.simbolo = simbolo;
+		this.valor = (float) valor;
+		this.idTiposDeConversao = tipo;
+		nomeComSimbolo.put(nome, simbolo);
+		valorComSimbolo.put(simbolo, valor);
+		nomeComTipo.put(nome, tipo);
+
+	}
+
+
+	public String toString(Medidas m) {
+
+		return m.nome;
+	}
+
+	public static Map<String, String> getnomeComSimbolo() {
+
+		return nomeComSimbolo;
+	}
+
+	public int getTipo(Medidas m) {
+
+		return m.idTiposDeConversao;
+
+	}
+
+
+	public static Float getValor(String idSimbolo) {
+
+		Set<Entry<String, Float>> associacoes = valorComSimbolo.entrySet();
+
+		for (Entry<String, Float> associacao : associacoes) {
+
+			if (associacao.getKey() == idSimbolo) {
+
+				return associacao.getValue();
+			}
+
+		}
+
+		return 0f;
+
+	}
+
+	public static void setCotacoes(Map<String, Float> associacoes) {
+
+		valorComSimbolo = associacoes;
+	}
+
+	public static void carregaCotacoes() throws ParseException {
+
+		Conexao.conexao();
+		Conexao.carregaCotacoes(valorComSimbolo);
+
+	}
+
+	public static String getSimbolo(String nome) {
+		
+		Set<Entry<String, String>> associacoes = nomeComSimbolo.entrySet();
+
+		for (Entry<String, String> associacao : associacoes) {
+
+			if (associacao.getKey() == nome) {
+
+				return associacao.getValue();
+			}
+
+		}
+
+		return null;
+
+	}
+
+	public static String[] getMedidasPorTipo(int tipo) {
+
+		Set<Entry<String, Integer>> associacoes = nomeComTipo.entrySet();
+		int i = 0;
+
+		for (Entry<String, Integer> associacao : associacoes) {
+
+			if (associacao.getValue() == tipo) {
+				i++;
+			}
+
+		}
+		String[] r = new String[i];
+		i = 0;
+		for (Entry<String, Integer> associacao : associacoes) {
+
+			if (associacao.getValue() == tipo) {
+				r[i] = associacao.getKey();
+				i++;
+			}
+
+		}
+
+		return r;
+
+	}
+
+}

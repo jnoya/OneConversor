@@ -1,0 +1,77 @@
+package conversor;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.hc.client5.http.fluent.Content;
+import org.apache.hc.client5.http.fluent.Request;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class Conexao{
+	
+	private static Map<String, Float> cotacoes = new HashMap<String, Float>();
+
+	public static void conexao() {
+	
+	    try {
+	    	JSONObject jsonObject = null;
+	
+	        Content content = Request.
+	        		get("https://exchange-rates.abstractapi.com/v1/live/?api_key=3c8f647e33c34cf6997903f760bb5ec1&base=USD")
+	        		.execute().returnContent();
+			FileWriter writeFile = new FileWriter("saida.json");
+			//Escreve no arquivo conteudo do Objeto JSON 
+			String cont = content.toString();
+			writeFile.write(cont); 
+			writeFile.close();
+			 
+			JSONParser parser = new JSONParser(); 
+			jsonObject = (JSONObject) parser.parse(new FileReader("saida.json"));
+			
+			String cot = jsonObject.get("exchange_rates").toString();
+			String[] cota = cot.split(",");
+			String[] cotac = null;
+			for (int i = 0; i < cota.length; i++) {
+		 
+			  cotac = cota[i].split(":");
+			  for (int c = 0; c < cotac[0].length(); c++) {
+				  
+				  if (cotac[0].charAt(0) < 65 || cotac[0].charAt(0) > 90) {
+					  
+					  cotac[0] = cotac[0].substring(1);
+				  }
+
+				  if (cotac[0].charAt(cotac[0].length() - 1) < 65 ||cotac[0].charAt(cotac[0].length() - 1) > 90){
+					  
+					  cotac[0] = cotac[0].substring(0, (cotac[0].length() - 1));
+				  }
+			  }	  
+			  SystemOutPrint(cota[1].getClass().getSimpleName());
+			  cotacoes.put(cotac[0], Float.valueOf(cotac[1]).floatValue());
+		  }
+
+	    }
+	    catch (IOException | ParseException error) { System.out.println(error); }
+	}
+
+	private static void SystemOutPrint(String simpleName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void carregaCotacoes(Map simboloComValor) {
+		
+        simboloComValor.keySet().forEach(simbolo->{
+	    	if (cotacoes.containsKey(simbolo)){
+	    		simboloComValor.put(simbolo, cotacoes.get(simbolo));
+	    	}
+        });
+        Medidas.setCotacoes(simboloComValor);
+	}
+}

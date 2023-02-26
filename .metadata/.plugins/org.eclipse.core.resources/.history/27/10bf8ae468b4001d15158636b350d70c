@@ -1,0 +1,121 @@
+package conversor;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+
+import org.json.simple.parser.ParseException;
+
+import java.util.Map.Entry;
+
+public class Medidas {
+
+	private int idMedida;
+	private String nome;
+	private static String simbolo;
+	private float valor;
+	private int idTiposDeConversao;
+	private static Map<String, Integer> tipoDeConversaoComNome = new HashMap<>();
+	private static Map<String, Float> valorComSimbolo = new HashMap<>();
+
+	public Medidas(int medida, String nome, String simbolo, float valor, int tipo) {
+
+		this.idMedida = medida;
+		this.nome = nome;
+		this.simbolo = simbolo;
+		this.valor = (float) valor;
+		this.idTiposDeConversao = tipo;
+		tipoDeConversaoComNome.put(nome, tipo);
+		valorComSimbolo.put(simbolo, valor);
+
+	}
+	
+	public String toString(Medidas m) {
+		
+		return m.nome;
+	}
+	
+	public static Map<String, Integer> getTipoDeConversaoComNome(){
+		
+		return tipoDeConversaoComNome;
+	}
+	
+	public int getTipo(Medidas m) {
+		
+		return m.idTiposDeConversao;
+		
+	}
+	
+
+	
+	 public static String[] getMedidasPorTipo(int tipo) {
+	 
+
+			Set<Entry<String, Integer>> associacoes = tipoDeConversaoComNome.entrySet();    
+	        int i = 0;
+	        
+			for (Entry<String, Integer> associacao : associacoes) {
+	            
+	        	if (associacao.getValue() == tipo) {
+	        		i++;
+	        	}
+	        	
+	        }
+			String[] r = new String[i];
+			i = 0;
+			for (Entry<String, Integer> associacao : associacoes) {
+	            
+	        	if (associacao.getValue() == tipo) {
+	        		r[i] = associacao.getKey();
+	        		i++;
+	        	}
+	        	
+	        }
+	 
+			return r;
+	 
+	 }
+ 
+	 public static Float getValor(String nome) {
+		 
+
+			Set<Entry<String, Float>> associacoes = valorComSimbolo.entrySet();    
+	 		
+			for (Entry<String, Float> associacao : associacoes) {
+	        
+				if (associacao.getKey() == simbolo) {
+				
+					return associacao.getValue();
+				}
+	        	        	
+	        }
+
+			return 0f;
+
+	 }
+	 
+	public static void setCotacoes(Map associacoes) {
+
+		valorComSimbolo = associacoes;
+	}
+
+	public static void carregaCotacoes() throws ParseException {
+		 
+		try {
+			Conexao.conexao();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Conexao.carregaCotacoes(valorComSimbolo);
+	 
+	}
+
+}

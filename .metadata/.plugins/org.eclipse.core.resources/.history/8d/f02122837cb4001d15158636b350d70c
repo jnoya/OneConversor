@@ -1,0 +1,68 @@
+package conversor;
+
+public class Convertidor {
+
+	public static float getResultado(String nInicial, String nDe, String nPara, String nDeSimbolo, String nParaSimbolo, String nValor) {
+		
+	
+		float valor = Float.valueOf(nValor).floatValue();
+		float resultado = 0;
+	
+		if (nInicial == "Temperatura") {
+		
+			if (nDe == "Grau(s) Celsius" && nPara == "Grau(s) Celsius") {
+				
+				return valor;
+			}
+			else if (nDe == "Grau(s) Celsius" && nPara == "Grau(s) Fahrenheit") {
+				
+				return valor * 1.8f + 32;
+				
+			}
+			else if (nDe == "Grau(s) Celsius" && nPara == "Kelvin") {
+				
+				return valor + 273.15f;
+			}
+	
+	
+			if (nDe == "Grau(s) Fahrenheit" && nPara == "Grau(s) Celsius") {
+				
+				return (valor - 32) / 1.8f;
+			}
+			else if (nDe == "Grau(s) Fahrenheit" && nPara == "Grau(s) Fahrenheit") {
+				
+				return valor;
+				
+			}
+			else if (nDe == "Grau(s) Fahrenheit" && nPara == "Kelvin") {
+				
+				return (valor - 32) / 1.8f + 273.15f;
+			}
+	
+	
+			if (nDe == "Kelvin" && nPara == "Grau(s) Celsius") {
+				
+				return valor - 273.15f;
+			}
+			else if (nDe == "Kelvin" && nPara == "Grau(s) Fahrenheit") {
+				
+				return (valor -273.15f) * 1.8f + 32;
+				
+			}
+			else if (nDe == "Kelvin" && nPara == "Kelvin") {
+				
+				return valor;
+			}
+	
+			return 0;
+		}
+		else
+		{
+		
+			return (valor / Medidas.getValor(nDeSimbolo)) * Medidas.getValor(nParaSimbolo);
+	
+		}
+		
+	}
+
+}
