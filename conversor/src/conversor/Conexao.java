@@ -59,9 +59,9 @@ public class Conexao {
 				cotacoes.put(cotac[0], Float.valueOf(cotac[1]).floatValue());
 			}
 			Medidas.carregaCotacoes(cotacoes);
-		} catch (IOException | ParseException error) {
-			String erro = error.getMessage();
-			int reposta = Caixa.caixaError(erro + "Error ao atualizar os dados das cotações de moedas desde o servidor."
+		} catch (IOException | ParseException ex) {
+			String exception = ex.getMessage();
+			int reposta = Caixa.caixaException(exception + "Error ao atualizar os dados das cotações de moedas desde o servidor."
 					+ System.lineSeparator() + " Verifique sua conexão a internet." + System.lineSeparator()
 					+ "Se desejar pode continuar com a conversão de outro tipo de medidas");
 			if (reposta != 0) {

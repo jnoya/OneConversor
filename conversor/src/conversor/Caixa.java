@@ -107,14 +107,14 @@ public class Caixa extends JOptionPane {
 		}
 	}
 
-	public static int caixaError(String error) {
+	public static int caixaException(String exception) {
 
 		if (!GraphicsEnvironment.isHeadless()) {
 			//Caixa mostra erro ocorrido e da possibilidade 
 			//de continuar com o que é possivel ou sair do programa
 			String[] opcoes = { "Continuar com outra conversão", "Não obrigado. Pode fechar " };
 
-			int i = JOptionPane.showOptionDialog(TELA, error, "Error", JOptionPane.YES_NO_OPTION,
+			int i = JOptionPane.showOptionDialog(TELA, exception, "Error", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, icon, opcoes, opcoes[0]);
 			return i;
 		}

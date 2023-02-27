@@ -50,7 +50,7 @@ public class Conversor {
 										} else {
 											// Se os simbolos não conseguem ser recuperados significa que os dados foram
 											// corrompidos e dá uma menssagem de erro
-											nFinal = Caixa.caixaError(
+											nFinal = Caixa.caixaException(
 													"Não foram encontrados os simbolos das moedas seleccionadas."
 															+ System.lineSeparator() + " Dados corrompidos");
 										}
@@ -63,7 +63,7 @@ public class Conversor {
 						}
 						else
 						{
-							nFinal = Caixa.caixaError("Não foram encontradas as medidas para o tipo seleccionado."
+							nFinal = Caixa.caixaException("Não foram encontradas as medidas para o tipo seleccionado."
 								+ System.lineSeparator() + "Dados corrompidos");
 						}
 						
