@@ -1,7 +1,5 @@
 package conversor;
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,21 +17,13 @@ public class Conexao {
 	public static boolean conexao() {
 
 		try {
-			JSONObject jsonObject = null;
-			//Estabelece uma conexão com a API
+			// Estabelece uma conexão com a API
 			Content content = Request.get(
 					"https://exchange-rates.abstractapi.com/v1/live/?api_key=3c8f647e33c34cf6997903f760bb5ec1&base=USD")
 					.execute().returnContent();
-			//Escreve a reposta num arquivo json
-			FileWriter writeFile = new FileWriter("saida.json");
-			// Escreve no arquivo conteudo do Objeto JSON
-			String cont = content.toString();
-			writeFile.write(cont);
-			writeFile.close();
-			//Le o conteudo do arquivo json
 			JSONParser parser = new JSONParser();
-			jsonObject = (JSONObject) parser.parse(new FileReader("saida.json"));
-			//Faz o tratamento dos dados recebidos para ficarem do formato desejado
+			JSONObject jsonObject = (JSONObject) parser.parse(content.toString());
+			// Faz o tratamento dos dados recebidos para ficarem do formato desejado
 			String cot = jsonObject.get("exchange_rates").toString();
 			String[] cota = cot.split(",");
 			String[] cotac = null;
@@ -65,7 +55,7 @@ public class Conexao {
 						cotac[1] = cotac[1].substring(0, (cotac[1].length() - 1));
 					}
 				}
-				//Carrega as cotações 
+				// Carrega as cotações
 				cotacoes.put(cotac[0], Float.valueOf(cotac[1]).floatValue());
 			}
 			Medidas.carregaCotacoes(cotacoes);
